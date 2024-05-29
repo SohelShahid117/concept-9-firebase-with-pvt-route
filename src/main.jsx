@@ -10,6 +10,7 @@ import Blog from "./Component/Blog/Blog";
 import Login from "./Component/Login/Login";
 import ErrorPage from "./Component/ErrorPage/ErrorPage";
 import FirebaseProvider from "./Pages/FirebaseProvider/FirebaseProvider";
+import Register from "./Component/Register/Register";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
       },
     ],
   },

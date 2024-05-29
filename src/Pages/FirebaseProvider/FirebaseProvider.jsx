@@ -18,15 +18,29 @@
 
 // export default FirebaseProvider;
 
-import React from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import React, { createContext } from "react";
+import { auth } from "./../../Firebase/Firebase.config";
+
+export const AuthContext = createContext(null); //vvi
 
 const FirebaseProvider = (props) => {
+  const createUser = (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+    // .then((result) => console.log(result.user))
+    // .catch((error) => console.log(error.message));
+  };
   console.log(props);
+  const authInfo = { createUser };
   return (
-    <div>
+    // <div>
+    //   {props.children}
+    //   {/* <h1>This is firebase provider.</h1> */}
+    // </div>
+    <AuthContext.Provider value={authInfo}>
       {props.children}
       {/* <h1>This is firebase provider.</h1> */}
-    </div>
+    </AuthContext.Provider>
   );
 };
 

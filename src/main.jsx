@@ -8,11 +8,14 @@ import About from "./Component/About/About";
 import Contact from "./Component/Contact/Contact";
 import Blog from "./Component/Blog/Blog";
 import Login from "./Component/Login/Login";
+import ErrorPage from "./Component/ErrorPage/ErrorPage";
+import FirebaseProvider from "./Pages/FirebaseProvider/FirebaseProvider";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -40,6 +43,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <FirebaseProvider>
+      <RouterProvider router={router} />
+    </FirebaseProvider>
   </React.StrictMode>
 );

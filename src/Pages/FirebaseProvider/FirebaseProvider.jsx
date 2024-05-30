@@ -18,13 +18,20 @@
 
 // export default FirebaseProvider;
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, { createContext, useEffect } from "react";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import React, { createContext, useEffect, useState } from "react";
 import { auth } from "./../../Firebase/Firebase.config";
 
 export const AuthContext = createContext(null); //vvi
 
 const FirebaseProvider = (props) => {
+  const [user, setUser] = useState(null);
+  console.log(user);
+
   //create user
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -32,12 +39,24 @@ const FirebaseProvider = (props) => {
     // .catch((error) => console.log(error.message));
   };
 
-  console.log(props);
+  // console.log(props);
+
+  //sign in user
+  const signInUser = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
   //observer
-  useEffect(() => {}, []);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // console.log(user);
+        setUser(user);
+      }
+    });
+  }, []);
 
-  const authInfo = { createUser };
+  const authInfo = { createUser, signInUser };
   return (
     // <div>
     //   {props.children}

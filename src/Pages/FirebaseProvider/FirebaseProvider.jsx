@@ -25,6 +25,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
 } from "firebase/auth";
 import React, { createContext, useEffect, useState } from "react";
 import { auth } from "./../../Firebase/Firebase.config";
@@ -62,6 +63,18 @@ const FirebaseProvider = (props) => {
     return signInWithPopup(auth, githubProvider);
   };
 
+  //logout
+  const logOut = () => {
+    setUser(null);
+    signOut(auth);
+    // .then(() => {
+    //   // Sign-out successful.
+    // })
+    // .catch((error) => {
+    //   // An error happened.
+    // });
+  };
+
   //observer
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -72,7 +85,14 @@ const FirebaseProvider = (props) => {
     });
   }, []);
 
-  const authInfo = { createUser, signInUser, googleLogin, githubLogin };
+  const authInfo = {
+    createUser,
+    signInUser,
+    googleLogin,
+    githubLogin,
+    logOut,
+    user,
+  };
   return (
     // <div>
     //   {props.children}

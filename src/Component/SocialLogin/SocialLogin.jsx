@@ -10,22 +10,24 @@ const SocialLogin = (props) => {
     <>
       <div className="p-2">
         <h2 className="text-center  divider">Continue With</h2>
-        <button
-          onClick={() => {
-            googleLogin();
-          }}
-          className="btn btn-primary"
-        >
-          Google
-        </button>
-        <button
-          onClick={() => {
-            githubLogin();
-          }}
-          className="btn btn-secondary"
-        >
-          Github
-        </button>
+        <div className="flex justify-around">
+          <button
+            onClick={() => {
+              googleLogin();
+            }}
+            className="btn btn-primary"
+          >
+            Google
+          </button>
+          <button
+            onClick={() => {
+              githubLogin();
+            }}
+            className="btn btn-secondary"
+          >
+            Github
+          </button>
+        </div>
       </div>
     </>
   );

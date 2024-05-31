@@ -2,10 +2,15 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Pages/FirebaseProvider/FirebaseProvider";
 import { useForm } from "react-hook-form";
+import SocialLogin from "../SocialLogin/SocialLogin";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
-  const { signInUser } = useContext(AuthContext);
+  // const { signInUser, googleLogin } = useContext(AuthContext);
+  const { signInUser, googleLogin, githubLogin } = useAuth();
   console.log(signInUser);
+  console.log(googleLogin);
+  console.log(githubLogin);
   const {
     register,
     handleSubmit,
@@ -77,6 +82,8 @@ const Login = () => {
               <button>Create an Account</button>
             </Link>
           </div>
+          {/* <SocialLogin value={googleLogin}></SocialLogin> */}
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>

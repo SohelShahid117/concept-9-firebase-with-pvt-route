@@ -14,6 +14,7 @@ import Register from "./Component/Register/Register";
 import ProductDetails from "./Component/ProductDetails/ProductDetails";
 import Hero from "./Component/Hero/Hero";
 import Book from "./Component/Book/Book";
+import PrivateRoute from "./Component/PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -32,17 +33,25 @@ const router = createBrowserRouter([
       },
       {
         path: `/book/:id`,
-        element: <Book></Book>,
+        element: (
+          <PrivateRoute>
+            <Book></Book>
+          </PrivateRoute>
+        ),
         loader: () => fetch(`/books.json`),
       },
       {
         path: "/product",
         element: <Products></Products>,
       },
-      {
-        path: "/product:id",
-        element: <ProductDetails></ProductDetails>,
-      },
+      // {
+      //   path: "/product:id",
+      //   element: (
+      //     <PrivateRoute>
+      //       <ProductDetails></ProductDetails>
+      //     </PrivateRoute>
+      //   ),
+      // },
       {
         path: "/about",
         element: <About></About>,

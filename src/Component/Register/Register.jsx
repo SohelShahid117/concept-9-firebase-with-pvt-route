@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../Pages/FirebaseProvider/FirebaseProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 
@@ -17,12 +17,21 @@ const Register = () => {
     watch,
     formState: { errors },
   } = useForm();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const whereFrom = location?.state || "/login";
+
   const onSubmit = (data) => {
     const { email, password } = data;
     // console.log(data);
     // console.log(email);
     // console.log(password);
-    createUser(email, password);
+    createUser(email, password).then((res) => {
+      if (res.user) {
+        navigate(whereFrom);
+      }
+    });
   };
   return (
     <div className="hero min-h-screen bg-base-200">

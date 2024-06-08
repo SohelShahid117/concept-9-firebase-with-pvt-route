@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Pages/FirebaseProvider/FirebaseProvider";
 import { useForm } from "react-hook-form";
 import SocialLogin from "../SocialLogin/SocialLogin";
@@ -17,12 +17,22 @@ const Login = () => {
     watch,
     formState: { errors },
   } = useForm();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const whereFrom = location?.state || "/login";
+
   const onSubmit = (data) => {
     const { email, password } = data;
     console.log(data);
     signInUser(email, password)
-      .then((result) => console.log(result.user))
-      .catch((error) => console.log(error));
+      // .then((result) => console.log(result.user))
+      // .catch((error) => console.log(error));
+      .then((res) => {
+        if (res.user) {
+          navigate(whereFrom);
+        }
+      });
   };
   return (
     <div className="hero min-h-screen bg-base-200">

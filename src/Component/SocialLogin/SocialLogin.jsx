@@ -1,11 +1,22 @@
 import React from "react";
 import useAuth from "../../hooks/useAuth";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SocialLogin = (props) => {
   console.log(props);
   const { googleLogin, githubLogin } = useAuth();
   console.log(googleLogin);
   console.log(githubLogin);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const whereFrom = location?.state || "/login";
+  const handleSocialLogin = (socialProvider) => {
+    socialProvider.then((res) => {
+      if (res.user) {
+        navigate(whereFrom);
+      }
+    });
+  };
   return (
     <>
       <div className="p-2">
@@ -13,7 +24,7 @@ const SocialLogin = (props) => {
         <div className="flex justify-around">
           <button
             onClick={() => {
-              googleLogin();
+              handleSocialLogin(googleLogin());
             }}
             className="btn btn-primary"
           >
@@ -21,7 +32,7 @@ const SocialLogin = (props) => {
           </button>
           <button
             onClick={() => {
-              githubLogin();
+              handleSocialLogin(githubLogin());
             }}
             className="btn btn-secondary"
           >

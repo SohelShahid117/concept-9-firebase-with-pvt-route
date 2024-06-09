@@ -23,6 +23,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -77,6 +78,20 @@ const FirebaseProvider = (props) => {
     return signInWithPopup(auth, githubProvider);
   };
 
+  //reset password
+  const resetPassword = (email) => {
+    return sendPasswordResetEmail(auth, email);
+    // .then(() => {
+    //   // Password reset email sent!
+    //   // ..
+    // })
+    // .catch((error) => {
+    //   const errorCode = error.code;
+    //   const errorMessage = error.message;
+    //   // ..
+    // });
+  };
+
   //logout
   const logOut = () => {
     setUser(null);
@@ -111,6 +126,7 @@ const FirebaseProvider = (props) => {
     user,
     loading,
     updateProfile,
+    resetPassword,
   };
   return (
     // <div>

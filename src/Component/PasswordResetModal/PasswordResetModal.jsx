@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import useAuth from "../../hooks/useAuth";
 
 const PasswordResetModal = () => {
+  const { resetPassword } = useAuth();
+  const [email, setEmail] = useState();
+  const handleSubmit = (e) => {
+    // e.preventDefault();
+    // console.log(email);
+    resetPassword(email).then((res) => console.log(res));
+  };
   return (
     <>
       {/* Open the modal using document.getElementById('ID').showModal() method */}
@@ -20,9 +28,19 @@ const PasswordResetModal = () => {
         </a>
       </label>
       <dialog id="my_modal_2" className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">Press ESC key or click outside to close</p>
+        <div action="" method="get" className="modal-box">
+          <input
+            type="email"
+            name="email"
+            id=""
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />{" "}
+          <br />
+          <button type="submit" value="Submit" onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>

@@ -26,6 +26,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import React, { createContext, useEffect, useState } from "react";
 import { auth } from "./../../Firebase/Firebase.config";
@@ -38,9 +39,11 @@ const githubProvider = new GithubAuthProvider();
 const FirebaseProvider = (props) => {
   const [user, setUser] = useState(null);
   console.log(user);
+  const [loading, setLoading] = useState(true);
 
   //create user
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
     // .then((result) => console.log(result.user))
     // .catch((error) => console.log(error.message));
@@ -48,24 +51,36 @@ const FirebaseProvider = (props) => {
 
   // console.log(props);
 
+  //update user
+  const updateUserProfile = (name, image) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: image,
+    });
+  };
+
   //sign in user
   const signInUser = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   //google login
   const googleLogin = () => {
+    setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
   //github login
   const githubLogin = () => {
+    setLoading(true);
     return signInWithPopup(auth, githubProvider);
   };
 
   //logout
   const logOut = () => {
     setUser(null);
+
     signOut(auth);
     // .then(() => {
     //   // Sign-out successful.
@@ -77,12 +92,14 @@ const FirebaseProvider = (props) => {
 
   //observer
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         // console.log(user);
         setUser(user);
+        setLoading(false);
       }
     });
+    return () => unSubscribe();
   }, []);
 
   const authInfo = {
@@ -92,6 +109,8 @@ const FirebaseProvider = (props) => {
     githubLogin,
     logOut,
     user,
+    loading,
+    updateProfile,
   };
   return (
     // <div>

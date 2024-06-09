@@ -9,7 +9,7 @@ const SocialLogin = (props) => {
   console.log(githubLogin);
   const navigate = useNavigate();
   const location = useLocation();
-  const whereFrom = location?.state || "/login";
+  const whereFrom = location?.state || "/login" || "/";
   const handleSocialLogin = (socialProvider) => {
     socialProvider.then((res) => {
       if (res.user) {

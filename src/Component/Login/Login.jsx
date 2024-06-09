@@ -4,6 +4,7 @@ import { AuthContext } from "../../Pages/FirebaseProvider/FirebaseProvider";
 import { useForm } from "react-hook-form";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import useAuth from "../../hooks/useAuth";
+import PasswordResetModal from "../PasswordResetModal/PasswordResetModal";
 
 const Login = () => {
   // const { signInUser, googleLogin } = useContext(AuthContext);
@@ -76,11 +77,12 @@ const Login = () => {
               {errors.password && (
                 <span className="text-red-600">This field is required</span>
               )}
-              <label className="label">
+              <PasswordResetModal></PasswordResetModal>
+              {/* <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
                   Forgot password?
                 </a>
-              </label>
+              </label> */}
             </div>
             <div className="form-control mt-6">
               <button className="btn btn-primary">Login</button>

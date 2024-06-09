@@ -8,7 +8,7 @@ const Register = () => {
   //   const all = useContext(AuthContext);
   //   console.log(all);
   // const { createUser } = useContext(AuthContext); //from createContext
-  const { createUser } = useAuth();
+  const { createUser, updateProfile } = useAuth();
   console.log(createUser);
 
   const {
@@ -23,14 +23,17 @@ const Register = () => {
   const whereFrom = location?.state || "/login";
 
   const onSubmit = (data) => {
-    const { email, password } = data;
+    const { email, password, image, fullName } = data;
     // console.log(data);
     // console.log(email);
     // console.log(password);
     createUser(email, password).then((res) => {
-      if (res.user) {
+      updateProfile(fullName, image).then(() => {
         navigate(whereFrom);
-      }
+        // if (res.user) {
+        //   navigate(whereFrom);
+        // }
+      });
     });
   };
   return (
